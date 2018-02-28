@@ -1,26 +1,28 @@
-require 'rubygems'
-require 'json'
+# require_relative 'teacher'
+require_relative 'student'
+
 module Login
     module_function
 
-    def initial (studlist_arr, selected_option)
+    def initial(studlist_arr, selected_option)
         command = selected_option
         if command == "s"
             self.match_student_id_in_studentlist (studlist_arr)
         elsif command == "t"
-            Teacher.run
+            puts "TEACHER"
         elsif command == ''
             SignIn.quit
         else
-            system("clear")
-            puts "invalid selection, returning to the main menu."
+            SignIn.clear
+            puts "Invalid selection, returning to the main menu......"
             SignIn.begin (studlist_arr)
         end
     end
 
-    def match_student_id_in_studentlist (studlist_arr)
+    def match_student_id_in_studentlist(studlist_arr)
         puts "Please enter your student ID"
         studid_str = gets.chomp.upcase
+        stid = studid_str
         found = false
         studlist_arr.each do |student_hash|
             # puts student_hash.inspect
@@ -31,10 +33,12 @@ module Login
             end 
         end
         if found == true 
-            puts "welcome"  
+            Student.clockin(studlist_arr, stid)
         else
-            puts "not found"
-            self.match_student_id_in_studentlist (studlist_arr)
+            SignIn.clear
+            puts "Student ID not found, returning to the main menu........."
+            SignIn.begin(studlist_arr)
+            
         end
     end
 end

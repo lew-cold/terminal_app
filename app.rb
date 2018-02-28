@@ -1,9 +1,12 @@
+require 'rubygems'
+require 'json'
+
 require_relative 'login'
 
 module SignIn
     module_function
     def prompt_ques
-        puts "Welcome to the registry.  Please select 's' for student, 't' for teacher or enter any key to exit."
+        puts "Welcome to Regi-Star!  Please select 's' for student, 't' for teacher or press enter to exit."
         gets.chomp
     end
 
@@ -16,16 +19,24 @@ module SignIn
     end
 
     def quit
-        puts "Leaving the system, thank you for using"
+        self.clear
+        puts "Leaving the system, thank you for using Regi-Star!"
+    end
+    
+    def clear
+        system("clear")
     end
 end
+
+# studlist_arr = {"student_name": "John", "student_ID": "CA123", "checkin": ["2018-02-28 21:38:56 +1100", "2018-02-28 21:38:56 +1100"]}, {"student_name": "Lewis", "student_ID": "CA124", "checkin": ["2018-02-28 21:38:56 +1100", "2018-02-28 21:38:56 +1100"]}, { "student_name": "Punya", "student_ID": "CA125", "checkin": ["2018-02-28 21:38:56 +1100", "2018-02-28 21:38:56 +1100"] }, { "student_name": "Michael", "student_ID": "CA126", "checkin":["2018-02-28 21:38:56 +1100", "2018-02-28 21:38:56 +1100"] }
 
 
 
 file = File.read("studlist.json")
 studlist_arr = JSON.parse(file, :symbolize_names => true)
+puts studlist_arr
 
-SignIn.begin(studlist_arr)
+# SignIn.begin(studlist_arr)
 
 # puts match_student_id_in_studentlist (studlist_arr)
 
