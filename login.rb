@@ -25,7 +25,7 @@ module Login
         stid = studid_str
         found = false
         studlist_arr.each do |student_hash|
-            # puts student_hash.inspect
+            puts student_hash.inspect
             # puts studid_str.inspect
             if student_hash[:student_ID] == studid_str then
                 found = true

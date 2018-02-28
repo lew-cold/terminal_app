@@ -1,12 +1,13 @@
-# require 'json'
+require 'json'
 
 module Writer
+    module_function
 
-    def send(stdc)
-        puts stdc
-        # File.open("studlist.json","w") do |f|
-        #     f.write(studwr.to_json)
+    def send(studlist_arr)
 
+        File.open("studlist.json","w") do |f|
+            f.write(studlist_arr.to_json)
+            end
     end
 
 

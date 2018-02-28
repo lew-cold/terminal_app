@@ -1,6 +1,6 @@
 require 'date'
 require 'time'
-# require_relative 'writer'
+require_relative 'writer'
 # require_relative 'app'
 # require_relative 'login'
 
@@ -15,11 +15,13 @@ module Student
             stda = studlist_arr.select{ |stu| stu[:student_ID] == stid }
             stdb = Hash[*stda.flatten]
             stdb[:checkin] << Time.now
-            stdc = Hash[*studlist_arr.flatten]
+            # puts studlist_arr
+            # studlist_arr = Hash[*studlist_arr.flatten]
             # Writer.send(stdc)
-                File.open("studlist.json","w") do |f|
-                f.write(stdc.to_json)
-                end
+            #     File.open("studlist.json","w") do |f|
+            #     f.write(stdc.to_json)
+            #     end
+                Writer.send(studlist_arr)
             puts "You are clocked in, please wait 2 seconds...."
             sleep 2
             # SignIn.clear

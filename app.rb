@@ -34,9 +34,9 @@ end
 
 file = File.read("studlist.json")
 studlist_arr = JSON.parse(file, :symbolize_names => true)
-puts studlist_arr
 
-# SignIn.begin(studlist_arr)
+
+SignIn.begin(studlist_arr)
 
 # puts match_student_id_in_studentlist (studlist_arr)
 
