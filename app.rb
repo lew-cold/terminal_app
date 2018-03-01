@@ -7,7 +7,7 @@ module SignIn
     module_function
     def prompt_ques
         puts "Welcome to Regi-Star!  Please select 's' for student, 't' for teacher or press enter to exit."
-        gets.chomp
+        gets.chomp.capitalize
     end
 
     def begin(studlist_arr)
@@ -34,6 +34,8 @@ end
 
 file = File.read("studlist.json")
 studlist_arr = JSON.parse(file, :symbolize_names => true)
+
+
 
 
 SignIn.begin(studlist_arr)

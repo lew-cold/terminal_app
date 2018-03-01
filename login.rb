@@ -1,15 +1,18 @@
-# require_relative 'teacher'
+require_relative 'teacher'
 require_relative 'student'
 
 module Login
     module_function
 
+    # TODO 
+    # - create unit test that calls initial([...], 2) and expects the response to be false
+    # - create unit test that calls initial([...], "s") and expects the response to be true
     def initial(studlist_arr, selected_option)
         command = selected_option
-        if command == "s"
+        if command == "S"
             self.match_student_id_in_studentlist (studlist_arr)
-        elsif command == "t"
-            puts "TEACHER"
+        elsif command == "T"
+            self.teacher_log(studlist_arr)
         elsif command == ''
             SignIn.quit
         else
@@ -25,8 +28,6 @@ module Login
         stid = studid_str
         found = false
         studlist_arr.each do |student_hash|
-            puts student_hash.inspect
-            # puts studid_str.inspect
             if student_hash[:student_ID] == studid_str then
                 found = true
                 break
@@ -35,10 +36,27 @@ module Login
         if found == true 
             Student.clockin(studlist_arr, stid)
         else
-            SignIn.clear
             puts "Student ID not found, returning to the main menu........."
+            sleep 2
+            SignIn.clear
             SignIn.begin(studlist_arr)
             
         end
     end
+
+    def teacher_log(studlist_arr)
+        puts "Welcome teacher, to access the admin functions please enter the pin"
+    pin = 1234
+    pin_entry = gets.chomp.to_i
+        if pin_entry == pin then
+            Teacher.run(studlist_arr)
+            # puts "hurrrray"
+        else
+            puts "Incorrect Pin, in 2 seconds you will be returned to the main menu...."
+            sleep 2
+            SignIn.clear
+            SignIn.begin(studlist_arr)
+        end
+    end
+
 end
