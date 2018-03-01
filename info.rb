@@ -84,8 +84,7 @@ module Info
     puts "Press 1 to get All student info".light_magenta
     puts "Press 2 to get indidual student info".light_magenta
     puts "Press 3 to go back to Teacher menu".light_magenta
-
-    print "Prease select the option ".light_magenta
+    print "Please select the option ".light_magenta
     input = gets.chomp
     input = input.to_i
 

@@ -13,16 +13,17 @@ module Teacher
     name = gets.chomp.capitalize
     puts "Enter Student ID".light_magenta
     student_id = gets.chomp.upcase
-    studlist_arr << {"student_name" => name, "student_ID" => student_id, "checkin" => []}
-    Writer.send(studlist_arr)
-    puts "The program must be restarted to reflect the new user".green
-    puts "Please press 1 to quit or any key to go back to the teachers menu"
-    resp = gets.chomp.to_i
-    if resp == 1
-      SignIn.quit
-    else
-      self.return(studlist_arr)
+    f = studlist_arr.find { |x| x[:student_ID] == student_id }
+    while f != nil
+      print "Error! ".red
+      puts "ID already exist please enter the ID again:".green
+      student_id = gets.chomp.upcase
+      f = studlist_arr.find { |x| x[:student_ID] == student_id }
     end
+    studlist_arr << {:student_name => name, :student_ID => student_id, :checkin => []}
+    Writer.send(studlist_arr)
+    puts "The new user has been added, please wait 2 seconds to be directed to the teacher menu...."
+    self.return(studlist_arr)
   end
 
   def idcheck(studlist_arr)
@@ -48,8 +49,8 @@ module Teacher
       self.return(studlist_arr)
     else
       puts "Error! You have not entered a valid option, please try again in 2 seconds.....".red
-      sleep 2
-      self.removestudent(studlist_arr)
+      SignIn.clear
+      self.idcheck(studlist_arr)
     end
   end
 
@@ -88,26 +89,29 @@ module Teacher
 
   def run(studlist_arr)
     puts "Welcome to the teachers room!".green
-    puts "Press 1: to add user, 2: to remove user, 3: to generate student reports, 4: to view the current student list or nothing to return to the main menu:".light_magenta
+    puts "Press 1: to add user,".light_magenta
+    puts "Press 2: to remove user,".light_magenta
+    puts "Press 3: to generate student reports,".light_magenta
+    puts "Press 4: to view the student list".light_magenta
+    puts "or any other key to return to the main menu:".light_magenta
     user_input = gets.chomp.to_i
-    if user_input == 1
+    case user_input
+    when 1
+      SignIn.clear
       self.createStudentLogin(studlist_arr)
-    elsif user_input == 2
+    when 2
+      SignIn.clear
       self.idcheck(studlist_arr)
-    elsif user_input == 3
+    when 3
       SignIn.clear
       Info.getInfo(studlist_arr)
-    elsif user_input == 4
+    when 4
       SignIn.clear
       view_student(studlist_arr)
-    elsif user_input == 0
+    else
       puts "Returning to the main menu......".green
-      sleep 2
       SignIn.clear
       SignIn.begin(studlist_arr)
-    else
-      puts "Invalid selection, please try again in 2 seconds....".red
-      self.return(studlist_arr)
     end
   end
 end

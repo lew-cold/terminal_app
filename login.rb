@@ -2,6 +2,8 @@ require 'colorize'
 require_relative 'teacher'
 require_relative 'student'
 
+PIN = 1234 # Please change the Teachers Room PIN here.
+
 module Login
   module_function
 
@@ -43,9 +45,8 @@ module Login
 
   def teacher_log(studlist_arr)
     puts "Welcome teacher, to access the admin functions please enter the pin".light_magenta
-    pin = 1234
     pin_entry = gets.chomp.to_i
-    if pin_entry == pin
+    if pin_entry == PIN
       puts "You are signed in, please wait....".green
       SignIn.clear
       Teacher.run(studlist_arr)
