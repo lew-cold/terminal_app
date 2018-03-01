@@ -12,7 +12,4 @@ module Writer
 
 
 
-
-
-
 end

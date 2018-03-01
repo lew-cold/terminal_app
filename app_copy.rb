@@ -1,10 +1,8 @@
-#!/usr/bin/env ruby
-
 require 'rubygems'
 require 'json'
 require 'colorize'
 
-require_relative './login'
+require_relative 'login'
 
 module SignIn
     module_function
